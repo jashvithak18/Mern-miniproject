@@ -12,7 +12,7 @@ app.use('/emp-api', empApp);
 
 async function connectDB() {
   try {
-    await mongoose.connect(process.env.DB_URL);
+    await mongoose.connect(process.env.MONGO_URI);
 
     const PORT = process.env.PORT || 2000;
 
