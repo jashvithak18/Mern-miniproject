@@ -1,5 +1,5 @@
 import exp from 'express';
-import { empApp } from './APIs/EmployeeAPI.js';
+import { empApp } from './API/EmployeeAPI.js';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
