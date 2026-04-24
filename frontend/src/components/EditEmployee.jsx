@@ -29,7 +29,7 @@ function EditEmployee() {
     // Make http put request
     try{
       setLoading(true);
-    const res =await axios.put(`https://emp-75vc.onrender.com/${state._id}`,modifiedEmp);
+    const res =await axios.put(`https://emp-75vc.onrender.com/emp-api/employees/${state._id}`,modifiedEmp);
     if(res.status===200){
       navigate('/list');
     }
