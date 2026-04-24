@@ -1,35 +1,57 @@
-import { useForm } from "react-hook-form"
-import { useLocation ,useNavigate} from "react-router"
-import { useEffect } from "react"
-import axios from 'axios'
+import { useForm } from "react-hook-form";
+import { useLocation ,useNavigate} from "react-router";
+import {useEffect ,useState} from 'react'
+import axios from 'axios';
 function EditEmployee() {
-  const {register,handleSubmit,formState:{errors},setValue
-}=useForm()
-const navigate=useNavigate()
-//get empobj from navigate hook
-const{state}=useLocation()
-useEffect(()=>{
-setValue("name",state.name)
-setValue("email",state.email)
-setValue("mobile",state.mobile)
-setValue("designation",state.designation)
-setValue("companyName",state.companyName)
-},[]
-)
-const saveModifiedEmp=async(modifiedEmp)=>
-{
-  //make http put req
-  const res=await axios.put(`http://localhost:2000/emp-api/employees/${state._id}`,modifiedEmp)
-  if(res.status==200){
-    //navigate to listof emps
-navigate('/list')
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+   const {
+    register,
+    handleSubmit,
+    formState: { errors },setValue
+  } = useForm();
+
+  const {state}=useLocation();
+  console.log(state);
+  useEffect(()=>{
+  setValue("name",state.name)
+  setValue("email",state.email)
+  setValue("mobile",state.mobile)
+  setValue("designation",state.designation)
+  setValue("companyName",state.companyName)
+},[]);
+
+
+  
+  const navigate = useNavigate();
+  const saveModifiedEmp = async(modifiedEmp)=>{
+    // console.log(modifiedEmp);
+    // Make http put request
+    try{
+      setLoading(true);
+    const res =await axios.put(`https://emp-75vc.onrender.com/${state._id}`,modifiedEmp);
+    if(res.status===200){
+      navigate('/list');
+    }
+  }catch (err) {
+      console.log("err in catch", err);
+      //deal with err
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
-}
+   if (loading) {
+    return <p className="text-center text-4xl">Loading....</p>;
+  }
+  if (error) {
+    return <p className="text-red-500 text-center text-3xl">{error}</p>;
+  }
   return (
     <div>
-      <h1 className="text-5xl text-center text-gray-600">Edit Employee</h1>
-      {/* form */}
-      <form className=" max-w-md mx-auto mt-10 " onSubmit={handleSubmit(saveModifiedEmp)} >
+       <h1 className="text-5xl text-center text-red-600">Edit Employee</h1>
+      
+      <form className=" max-w-md mx-auto mt-10" onSubmit={handleSubmit(saveModifiedEmp)} >
         <input
           type="text"
           placeholder="Enter name "
@@ -41,6 +63,7 @@ navigate('/list')
           placeholder="Enter Email "
           {...register("email")}
           className="mb-3  border-2 p-3 w-full rounded-2xl"
+            disabled// diabled in form for editing
         />
 
         <input

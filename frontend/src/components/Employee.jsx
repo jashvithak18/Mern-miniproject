@@ -1,15 +1,19 @@
 import {useLocation} from 'react-router'
 
+
 function Employee() {
-  //read state received in navigation
-  const {state}=useLocation()
+  // read state from the navigation
+
+  const {state}=useLocation();  // state property lo employee details i.e object undi
+
   return (
-    <div className='p-10 text-center text-3xl shadow-2xl bg-olive-200'>
-<p>Name: {state.name}</p>
-<p>Email: {state.email}</p>
-<p>Mobile: {state.mobile}</p>
-<p>Designation: {state.designation}</p>
-<p>Company Name: {state.companyName}</p>
+    <div className='text-center border-orange-500 border-2 p-3 rounded-4xl'>
+      <h2 className='text-4xl  mb-3'>Employee Details</h2>
+      <p className='text-3xl border-3 mx-70 rounded-2xl mb-2'>{state.name}</p>
+      <p className='text-3xl border-3 mx-70 rounded-2xl mb-2'>{state.email}</p>
+      <p className='text-3xl border-3 mx-70 rounded-2xl mb-2'>{state.mobile}</p>
+      <p className='text-3xl border-3 mx-70 rounded-2xl mb-2'>{state.designation}</p>
+      <p className='text-3xl border-3 mx-70 rounded-2xl mb-2'>{state.companyName}</p>
     </div>
   )
 }
