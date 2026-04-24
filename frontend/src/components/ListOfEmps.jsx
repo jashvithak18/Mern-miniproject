@@ -17,7 +17,7 @@ function ListOfEmps() {
     try{
     setLoading(true);
     setError("");
-    let res = await axios.delete(`https://emp-75vc.onrender.com/emp-api/employees/${id}`)
+    let res = await axios.delete(`https://emp-75vc.onrender.com/emp-api/emp/${id}`)
     if(res.status===200){
       //get the latest data
         getEmps();
@@ -39,7 +39,7 @@ function ListOfEmps() {
     try{
       setLoading(true);
       setError("");
-      let res = await axios.get("https://emp-75vc.onrender.com/emp-api/employees");
+      let res = await axios.get("https://emp-75vc.onrender.com/emp-api/emp");
       if (res.status === 200) {
         let resObj = res.data;
         setEmps(resObj.payload);
